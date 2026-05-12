@@ -217,18 +217,18 @@ Average over k, then apply Adam update with cosine-annealed LR.
 |---|---|---|---|---|---|---|
 | 1 | Kaiming (skeleton) | skeleton k=1, lr=1e-3 | ~1% | ~1% | 32×32 | baseline skeleton |
 | 2 | Standard LogReg (512-d) | — | 62.8% | — | — | LP-only reference |
-| 3 | Flip-aug LogReg (100k pts) | — | 28.0% | — | — | ❌ lbfgs diverged |
-| 4 | LDA(99d) + LogReg C=10 | k=4, lr=1e-3, FC only, cosine | 65.93% | 65.76% | 128×64 | ❌ lr too high |
-| **5** | **LDA + LogReg C=10** | **k=4, lr=3e-4, FC only, cosine** | **65.93%** | **66.06%** | **128×64** | **✅ best result** |
+| 3 | Flip-aug LogReg (100k pts) | — | 28.0% | — | — | - lbfgs diverged |
+| 4 | LDA(99d) + LogReg C=10 | k=4, lr=1e-3, FC only, cosine | 65.93% | 65.76% | 128×64 | - lr too high |
+| **5** | **LDA + LogReg C=10** | **k=4, lr=3e-4, FC only, cosine** | **65.93%** | **66.06%** | **128×64** | **best result** |
 | 6 | LDA, C ∈ {10, 100, 1000} | — | 65.93% | — | — | all identical; LDA removes need for regularization |
-| 7 | ZCA + LDA | k=4, clip=1.0, FC only | 65.93% | 65.93% | 128×64 | ❌ clip_norm=1.0 zeroed all updates |
-| 8 | ZCA + LDA | k=16, BN layer4, lr_bn=1.5e-3 | 65.91% | 63.90% | 128×64 | ❌ BN drift −2.0 pp |
-| 9 | ZCA + LDA | k=16, lr=3e-4, FC only | 65.91% | 65.81% | 128×64 | ❌ Adam overshoot from LP init |
-| 10 | ZCA + LDA | k=16, lr=1.5e-4, FC only | 65.91% | 65.82% | 128×64 | ❌ k=16 still overshoots at lower lr |
-| 11 | ZCA + LDA | k=4, lr=3e-4, FC only, batch=128 | 65.91% | 65.90% | 64×128 | ❌ fewer steps cancel noise reduction |
-| 12 | ZCA + LDA | k=4, lr=3e-4, FC only, cosine (repro) | 65.91% | 66.03% | 128×64 | ✅ within ±0.5% of run #5 |
+| 7 | ZCA + LDA | k=4, clip=1.0, FC only | 65.93% | 65.93% | 128×64 |  clip_norm=1.0 zeroed all updates |
+| 8 | ZCA + LDA | k=16, BN layer4, lr_bn=1.5e-3 | 65.91% | 63.90% | 128×64 |  BN drift −2.0 pp |
+| 9 | ZCA + LDA | k=16, lr=3e-4, FC only | 65.91% | 65.81% | 128×64 |  Adam overshoot from LP init |
+| 10 | ZCA + LDA | k=16, lr=1.5e-4, FC only | 65.91% | 65.82% | 128×64 |  k=16 still overshoots at lower lr |
+| 11 | ZCA + LDA | k=4, lr=3e-4, FC only, batch=128 | 65.91% | 65.90% | 64×128 |  fewer steps cancel noise reduction |
+| 12 | ZCA + LDA | k=4, lr=3e-4, FC only, cosine (repro) | 65.91% | 66.03% | 128×64 | within ±0.5% of run #5 |
 | 13 | ZCA + LDA | k=4, lr=3e-4, FC only, constant LR | 65.91% | 66.01% | 128×64 | ≈ statistically tied with cosine |
-| 14 | ZCA + LDA | k=4, lr_bn=1e-4, all BN (9.6k) + FC | 65.93% | 65.76% | 128×64 | ❌ SPSA noise > BN signal |
+| 14 | ZCA + LDA | k=4, lr_bn=1e-4, all BN (9.6k) + FC | 65.93% | 65.76% | 128×64 |  SPSA noise > BN signal |
 
 ### Why Each Approach Failed
 
